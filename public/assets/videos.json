@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "title": "Big Buck Bunny",
+    "description": "The first Bunny movie.",
+    "url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "type": "video/mp4"
+  },
+  {
+    "id": 2,
+    "title": "Elephant's Dream",
+    "description": "Friends are everything.",
+    "url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    "type": "video/mp4"
+  },
+  {
+    "id": 3,
+    "title": "Mux Test HLS",
+    "description": "High quality HLS stream for testing.",
+    "url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+    "type": "application/x-mpegURL"
+  },
+  {
+    "id": 4,
+    "title": "For Bigger Blazes",
+    "description": "A fire station story.",
+    "url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    "type": "video/mp4"
+  },
+  {
+    "id": 5,
+    "title": "Sintel HLS",
+    "description": "Sintel is an independent film by the Blender Institute.",
+    "url": "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8",
+    "type": "application/x-mpegURL"
+  },
+  {
+    "id": 6,
+    "title": "Akamai HLS",
+    "description": "Akamai test stream.",
+    "url": "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-911d-472c-9110-b60424644515.m3u8",
+    "type": "application/x-mpegURL"
+  }
+]

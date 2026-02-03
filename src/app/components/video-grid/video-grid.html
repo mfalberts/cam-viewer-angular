@@ -1,0 +1,37 @@
+<div class="container">
+  @if (isLoading) {
+    <mat-progress-bar mode="indeterminate" class="loading-bar"></mat-progress-bar>
+  }
+
+  <div class="search-header">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search videos</mat-label>
+      <input matInput [(ngModel)]="searchTerm" (ngModelChange)="onSearch()" placeholder="e.g. Bunny">
+    </mat-form-field>
+  </div>
+
+  <div class="video-grid">
+    @for (video of filteredVideos; track video.id) {
+      <mat-card class="video-card">
+        <mat-card-header>
+          <mat-card-title>{{ video.title }}</mat-card-title>
+          <mat-card-subtitle>{{ video.type }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <div class="player-wrapper">
+          <app-video-player [src]="video.url" [type]="video.type"></app-video-player>
+        </div>
+
+        <mat-card-content>
+          <p>{{ video.description }}</p>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+
+  @if (filteredVideos.length === 0 && !isLoading) {
+    <div class="no-results">
+      No videos found matching "{{ searchTerm }}"
+    </div>
+  }
+</div>
