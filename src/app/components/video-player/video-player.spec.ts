@@ -6,6 +6,24 @@ describe('VideoPlayer', () => {
   let fixture: ComponentFixture<VideoPlayer>;
 
   beforeEach(async () => {
+    // Mock RTCPeerConnection
+    if (typeof (window as any).RTCPeerConnection === 'undefined') {
+      (window as any).RTCPeerConnection = class {
+        close() {}
+        addTransceiver() {}
+        createOffer() { return Promise.resolve({ sdp: 'mock-sdp' }); }
+        setLocalDescription() { return Promise.resolve(); }
+        setRemoteDescription() { return Promise.resolve(); }
+      };
+    }
+
+    // Mock fetch
+    (window as any).fetch = () =>
+      Promise.resolve({
+        ok: true,
+        text: () => Promise.resolve('mock-answer-sdp')
+      } as any);
+
     await TestBed.configureTestingModule({
       imports: [VideoPlayer]
     }).compileComponents();
@@ -24,8 +42,23 @@ describe('VideoPlayer', () => {
   it('should have video element with autoplay and muted attributes', () => {
     const videoEl: HTMLVideoElement = fixture.nativeElement.querySelector('video');
     expect(videoEl).toBeTruthy();
-    // Use hasAttribute for checking boolean attributes in JSDOM if properties are not reflecting
     expect(videoEl.hasAttribute('autoplay')).toBe(true);
     expect(videoEl.hasAttribute('muted')).toBe(true);
+  });
+
+  it('should initialize WebRTC for application/webrtc type', async () => {
+    let fetchCalled = false;
+    (window as any).fetch = (url: string) => {
+      if (url === 'http://test-whep') fetchCalled = true;
+      return Promise.resolve({
+        ok: true,
+        text: () => Promise.resolve('mock-answer-sdp')
+      } as any);
+    };
+
+    component.type = 'application/webrtc';
+    component.src = 'http://test-whep';
+    await (component as any).initVideo();
+    expect(fetchCalled).toBe(true);
   });
 });
